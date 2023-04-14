@@ -15,6 +15,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage]=useState('');
 
     /* By default, the form will be submitted to the URL of the page where the form is located.
     We can prevent this default behavior by calling the event.preventDefault() method in the 
@@ -23,9 +24,24 @@ const ContactUs = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-  // Error handling/Validate form data: email needs to contain @, otherwise, show error messages
-     if (!email.includes('@')) {
-      window.alert('Please enter a valid email address.');
+  
+
+  // check if firstname and lastname are empty, if so, alert user 
+  if (!firstName.trim() || !lastName.trim()) {
+    setErrorMessage('Names cannot be empty.');
+    return;
+  }
+
+// Error handling/Validate form data: email needs to contain @, otherwise, show error messages
+if (!email.includes('@')) {
+  setErrorMessage('Please enter a valid email address.');
+  return;
+}
+
+  // check if message is at last 10 characters, if not, alert user
+  const words = message.split(' ');
+    if (words.length < 10) {
+      setErrorMessage('Please enter a message that is at least 10 words long.');
       return;
     }
 
@@ -41,6 +57,7 @@ const ContactUs = () => {
     setFirstName('');
     setLastName('');
     setEmail('');
+    setMessage('');
     setMessage('');
 
     // Show confirmation message
@@ -91,7 +108,8 @@ const ContactUs = () => {
                 />
             </div>
            
-  
+            {errorMessage && <p className="error">{errorMessage}</p>}
+            
             <button type="submit" onClick={handleSubmit}>Submit</button>
             {formSubmitted && <p>Thank you, your message has been submitted.</p>}
         
