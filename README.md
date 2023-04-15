@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+I spent many days on Github... couldn't get git push to work properly 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
